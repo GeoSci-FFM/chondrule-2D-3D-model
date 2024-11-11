@@ -1,5 +1,4 @@
 matplotlib
-matplotlib.patches
 scipy
 numpy
 pandas
