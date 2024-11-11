@@ -1,0 +1,8 @@
+matplotlib.pyplot
+matplotlib.patches
+scipy
+numpy
+pandas
+random
+IPython.display
+os
