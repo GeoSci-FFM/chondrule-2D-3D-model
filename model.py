@@ -3,7 +3,6 @@ import utils.func
 
 import numpy as np
 import pandas as pd
-from IPython.display import clear_output
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 from matplotlib.patches import Rectangle
