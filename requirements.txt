@@ -2,6 +2,3 @@ matplotlib
 scipy
 numpy
 pandas
-random
-IPython.display
-os

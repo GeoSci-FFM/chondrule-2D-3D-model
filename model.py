@@ -7,8 +7,8 @@ from IPython.display import clear_output
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 from matplotlib.patches import Rectangle
-import os
-current_dir = os.getcwd()
+# import os
+# current_dir = os.getcwd()
 
 st.title('2D/3D model')
 
