@@ -20,7 +20,7 @@ tab1, tab2, tab3 = st.tabs(['explore', 'run a model', 'switch'])
 with tab1:
     st.subheader('explore')
 
-    df_results = pd.read_csv(current_dir + '/chondrules 2D-3D distributions results file.csv')
+    df_results = pd.read_csv('chondrules 2D-3D distributions results file.csv')
 
     col1, col2 = st.columns(2)
     with col1:
