@@ -126,18 +126,20 @@ def model_plot(max_chd_size, sel_mu3D, df_results):
 ##--- Plot 3D chd size distribution ---##
 ##-------------------------------------##
 
-def chd_3D_size_distribution(mu, sigma):
+def chd_3D_size_distribution(mu, sigma, x_max):
     x = np.linspace(1e-5, 2000, 1000)  # Start x from a small positive value to avoid division by zero
     pdf = (1 / (x * sigma * np.sqrt(2 * np.pi))) * np.exp(- (np.log(x) - mu)**2 / (2 * sigma**2))
 
     plt.clf()
-    
-    plt.plot(x, pdf, label=r'$\mu=5, \sigma=0.7$', color='orange')
-    plt.xlabel('Value')
-    plt.ylabel('Probability Density')
-    plt.title('Log-normal Distribution')
-    plt.legend()
-    plt.grid(True)
+    plt.figure(figsize=(4, 2))
+    plt.plot(x, pdf)
+    plt.xlabel('chondrule size, i.e., diameter (µm)', fontsize=6)
+    plt.ylabel('frequency', fontsize=6)
+    plt.xlim([0,x_max])
+    plt.ylim([0, 1.1*max(pdf)])
+    plt.xticks(fontsize=5)
+    plt.yticks([])
+    # plt.grid(True)
     return st.pyplot(plt)
 
 

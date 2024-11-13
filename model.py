@@ -119,7 +119,7 @@ with tab3:
         zAxisLength_switch = 10**zAxisLength_switch
 
     st.write('3D chondrule size distribution as defined by the only 2 parameters **µ 3D** and **σ initial**.')
-    utils.func.chd_3D_size_distribution(mu3D_switch, sigma3Dini_switch)
+    utils.func.chd_3D_size_distribution(mu3D_switch, sigma3Dini_switch, maxChdSize_switch)
 
     if st.button('produce & show plots'):
         utils.func.switch_plot(mu3D_switch, sigma3Dini_switch, numberOfChondrules_switch, zAxisLength_switch, maxChdSize_switch)
