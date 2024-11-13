@@ -122,4 +122,4 @@ with tab3:
     utils.func.chd_3D_size_distribution(mu3D_switch, sigma3Dini_switch, maxChdSize_switch)
 
     if st.button('produce & show plots'):
-        utils.func.switch_plot(mu3D_switch, sigma3Dini_switch, numberOfChondrules_switch, zAxisLength_switch, maxChdSize_switch)
+        utils.func.switch_plot(mu3D_switch, .1, numberOfChondrules_switch, zAxisLength_switch, maxChdSize_switch)
