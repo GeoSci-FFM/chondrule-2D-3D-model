@@ -13,7 +13,7 @@ st.session_state.dfParameters = pd.read_csv('chondrules 2D-3D distributions resu
 
 st.title('2D/3D model')
 
-tab1, tab2, tab3 = st.tabs(['explore', 'run a model', 'switch'])
+tab1, tab2, tab3 = st.tabs(['explore parameters', 'build your model', 'switch'])
 # the mu of the parent 3D distribution is fixed at a typical value for chondrule size distributions
 # taken from the metzler data fits below
 
