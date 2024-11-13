@@ -122,9 +122,9 @@ def model_plot(max_chd_size, sel_mu3D, df_results):
     return st.pyplot(plt)
 
 
-
-
-
+##------------------------------------------------------------------------------------------------------------------------------------------------##
+##--- Histograms illustrating the switch of the mean 2D located to the left of the mean 3D to the mean 2D located to the right of the mean 3D  ---##
+##------------------------------------------------------------------------------------------------------------------------------------------------##
 
 def switch_plot(mu3D, sigma3Dini, numberOfChondrules, zAxisLength, maxChdSize):
     plot_labels = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i']

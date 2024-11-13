@@ -102,7 +102,7 @@ with tab2:
 
 
 with tab3:
-    st.subheader('Demonstrating the switch from the mean 3D being higher to mean 2D being higher')
+    st.write('Histograms illustrating the switch of the mean 2D located to the **left** of the mean 3D to the mean 2D located to the **right** of the mean 3D')
 
     mu3D = 6.2
     sigma3Dini = .1
