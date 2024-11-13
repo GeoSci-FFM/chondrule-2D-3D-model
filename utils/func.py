@@ -131,7 +131,7 @@ def switch_plot(mu3D, sigma3Dini, numberOfChondrules, zAxisLength, maxChdSize):
 
     # Clear previous plots
     plt.clf()
-    
+
     fig, axs = plt.subplots(3, 3, sharex=True, sharey=True, figsize = (12.5, 7.5))
     plt.subplots_adjust(hspace=0)
     plt.subplots_adjust(wspace=0)
@@ -145,11 +145,11 @@ def switch_plot(mu3D, sigma3Dini, numberOfChondrules, zAxisLength, maxChdSize):
     # Simple progress counter
     #    print(i)
             z+=1
-            dfChdList = utils.func.chd3DList(numberOfChondrules, zAxisLength, mu3D, sigma3Dini * z) # noc, zAxisLen, mu, sigma
+            dfChdList = chd3DList(numberOfChondrules, zAxisLength, mu3D, sigma3Dini * z) # noc, zAxisLen, mu, sigma
             dfChdList = dfChdList[dfChdList['Chd Diameter'] < maxChdSize]
-            appChdDiameterList = utils.func.sectionedChd(.5 * zAxisLength, dfChdList)
-            muFit, SigmaFit = utils.func.calcMuSigma(appChdDiameterList)
-            muFit3D, SigmaFit3D = utils.func.calcMuSigma(dfChdList['Chd Diameter'])
+            appChdDiameterList = sectionedChd(.5 * zAxisLength, dfChdList)
+            muFit, SigmaFit = calcMuSigma(appChdDiameterList)
+            muFit3D, SigmaFit3D = calcMuSigma(dfChdList['Chd Diameter'])
         
             # plotting and formatting the figure
             xAxisMax = maxChdSize

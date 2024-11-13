@@ -83,8 +83,8 @@ with tab2:
 
 
     if st.button('calculate'):
-            utils.func.run_model(mu3DList, iniSigma_List, minChdSize_range, maxChdSize_range, numberOfChondrules, zAxisLength)
-            # st.write('finished')
+        utils.func.run_model(mu3DList, iniSigma_List, minChdSize_range, maxChdSize_range, numberOfChondrules, zAxisLength)
+        # st.write('finished')
 
     with st.expander('Results Table'):
         st.dataframe(st.session_state.dfParameters)
