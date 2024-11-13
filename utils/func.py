@@ -4,6 +4,8 @@ import pandas as pd
 from scipy import stats
 import random
 import matplotlib.pyplot as plt
+import matplotlib.patches as patches
+from matplotlib.patches import Rectangle
 
 def test_func(a):
     st.write(a)
@@ -217,3 +219,95 @@ def switch_plot(mu3D, sigma3Dini, numberOfChondrules, zAxisLength, maxChdSize):
                 ax.set_yticks([])  # Remove ticks
 
     return st.pyplot(fig)
+
+
+##-------------------------------##
+##--- Plot sigma2D vs sigma3D ---##
+##-------------------------------##
+
+
+def sigma2D_vs_sigma3D():
+    dfPara = pd.read_csv('chondrules 2D-3D distributions results file.csv')
+    selParam = dfPara.columns.tolist()
+    xAxis = selParam[12]
+    yAxis = selParam[5]
+
+    plt.clf()
+    plt.text(.32, .97, 'a', fontsize=14)
+    plt.text(.32, .9, 'µ 3D: 6.2', c='dimgrey')
+    plt.text(.83, .67, 'y = 1.19 * x - 0.27', rotation=31)
+
+    x = np.linspace(0, 1.7, 50)
+    plt.plot(x, 1.19 * x - .27, color = 'black', linestyle='--', lw = 1)
+
+    for mark, maxChdSize in [['o', 1000], ['v', 2000], ['d', 4000]]:
+        for mu3D in [6.2]:
+            for col, minChdSize in [['royalblue', 0], ['sienna', 400]]:
+                fil = (dfPara['min. Chd Diameter'] == minChdSize) & (dfPara['max. Chd Diameter'] == maxChdSize) & (dfPara[r'initial $\mu$ 3D'] == mu3D)
+                if maxChdSize == 2000:
+                    plt.scatter(dfPara[fil][xAxis], dfPara[fil][yAxis], label=minChdSize, marker=mark, s=25, c=col)
+                plt.scatter(dfPara[fil][xAxis], dfPara[fil][yAxis], label=minChdSize, marker=mark, s=25, c=col, alpha=.5)
+
+    lower_rect = patches.Rectangle((0, 0), 0.65, 1.19 * .65 - .27, facecolor='black', alpha=.05)
+    plt.gca().add_patch(lower_rect)
+
+    plt.xlim(.3, 1)
+    plt.ylim(0, 1.05)
+    plt.xlabel('σ of the 2D size distribution', fontsize=14)
+    plt.ylabel('σ of the 3D size distribution', fontsize=14)
+    plt.legend(title=r'$\mu$ 3D', loc='lower right')
+    plt.xticks(fontsize=14)
+    plt.yticks(fontsize=14)
+
+
+    legend_handles = [
+        plt.Line2D([], [], color='sienna', linestyle='-', label='min size: 400'),
+        plt.Line2D([], [], color='royalblue', linestyle='-', label='min size: 0'),
+        plt.Line2D([], [], color='black', marker='o', linestyle='None', markersize=5, label='max size: 1000'),
+        plt.Line2D([], [], color='black', marker='v', linestyle='None', markersize=5, label='max size: 2000'),
+        plt.Line2D([], [], color='black', marker='d', linestyle='None', markersize=5, label='max size: 4000')
+    ]
+
+    plt.legend(handles=legend_handles) #, title='legend title')
+
+    return st.pyplot(plt)
+
+
+##----------------------------##
+##--- Plot sigma2D vs mu3D ---##
+##----------------------------##
+
+def sigma2D_vs_mu3D():
+    dfPara = pd.read_csv('chondrules 2D-3D distributions results file.csv')
+    selParam = dfPara.columns.tolist()
+    xAxis = selParam[11]
+    yAxis = selParam[4]
+
+    plt.clf()
+    plt.text(5.84, 6.56, 'b', fontsize=14)
+    plt.text(5.84, 6.51, r'$\sigma$ 3D: 0.6', c='dimgrey')
+    plt.text(5.98, 6.02, '1:1 line', c='dimgrey', rotation=50)
+    x = np.linspace(6, 6.6, 50)
+    plt.plot(x, x, linestyle=':', c='grey', lw = 1)
+
+    for sigma in [.6]: #[.02] + [x/10 for x in range(2, 20, 2)] + [1.98]:
+        for l_style, maxChdSize in [['-', 1000], ['--', 2000], ['-.', 4000]]:
+            for col, minChdSize in [['royalblue', 0], ['sienna', 400]]:
+                fil = (dfPara['min. Chd Diameter'] == minChdSize) & (dfPara['max. Chd Diameter'] == maxChdSize) & (dfPara[r'initial $\sigma$ 3D'] == sigma)
+                plt.plot(dfPara[fil][xAxis], dfPara[fil][yAxis], linestyle=l_style, color=col, label=sigma)
+
+    plt.xlim(5.8, 6.8)
+    plt.ylim(5.98, 6.62)
+    plt.xlabel('μ of the 2D size distribution', fontsize=14)
+    plt.ylabel('μ of the 3D size distribution', fontsize=14)
+    plt.xticks(fontsize=14)
+    plt.yticks(fontsize=14)
+    legend_handles = [
+        plt.Line2D([], [], color='royalblue', linestyle='-', label='min size: 0'),
+        plt.Line2D([], [], color='sienna', linestyle='-', label='min size: 400'),
+        plt.Line2D([], [], color='black', linestyle='-', label='max size: 1000'),
+        plt.Line2D([], [], color='black', linestyle='--', label='max size: 2000'),
+        plt.Line2D([], [], color='black', linestyle='-.', label='max size: 4000')
+    ]
+    plt.legend(handles = legend_handles, loc='lower right')
+    return st.pyplot(plt)

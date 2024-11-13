@@ -1,20 +1,13 @@
 import streamlit as st
 import utils.func
-
-import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
-import matplotlib.patches as patches
-from matplotlib.patches import Rectangle
-# import os
-# current_dir = os.getcwd()
 
 st.session_state.dfParameters = pd.read_csv('chondrules 2D-3D distributions results file.csv')
 
-st.title('2D/3D model')
-st.markdown('companion app to Hezel & Metzler 2025 Revealing the relationship between 2D and 3D chondrule size-frequency distribution in a meteorite. Meteoritics & Planetary Sciences (re-submitted)')
+st.title('Revealing the relationship between 2D and 3D size-frequency distributions')
+st.markdown('Companion app to: Hezel & Metzler 2025. Revealing the relationship between 2D and 3D chondrule size-frequency distribution in a meteorite. *Meteoritics & Planetary Sciences* (re-submitted)')
 
-tab1, tab2, tab3 = st.tabs(['explore parameters', 'build your model', 'switch'])
+tab1, tab2, tab3 = st.tabs(['pre-calculated parameter space', 'apply own parameter space', 'histograms'])
 # the mu of the parent 3D distribution is fixed at a typical value for chondrule size distributions
 # taken from the metzler data fits below
 
@@ -31,6 +24,8 @@ with tab1:
         sel_mu3D = st.selectbox('initial $\mu$ 3D', df_results['initial $\mu$ 3D'].unique(), index=1)
     
     utils.func.model_plot(max_chd_size, sel_mu3D, df_results)
+    # utils.func.sigma2D_vs_sigma3D()
+    # utils.func.sigma2D_vs_mu3D()
 
 with tab2:
     col1, col2, col3 = st.columns(3)
