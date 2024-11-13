@@ -30,10 +30,10 @@ with tab1:
     
     utils.func.model_plot(max_chd_size, sel_mu3D, df_results)
 
-with tab2:    
+with tab2:
     col1, col2, col3 = st.columns(3)
     with col1:
-        mu3DStart = st.number_input('start', value=6.2, step=.2, key='mu3Dstart')
+        mu3DStart = st.number_input('**µ 3D mean** start', value=6.2, step=.2, key='mu3Dstart')
     with col2:
         mu3DSEnd = st.number_input('end', value=6.4, step=.2, key='mu3Dend')
     with col3:
@@ -42,7 +42,7 @@ with tab2:
 
     col1, col2, col3 = st.columns(3)
     with col1:
-        iniSigmastart = st.number_input('start', value=.4, step=.05, key='iniSigmastart')
+        iniSigmastart = st.number_input('**σ initial** start', value=.4, step=.05, key='iniSigmastart')
     with col2:
         iniSigmaend = st.number_input('end', value=.6, step=.05, key='iniSigmaend')
     with col3:
@@ -51,7 +51,7 @@ with tab2:
 
     col1, col2, col3 = st.columns(3)
     with col1:
-        minChdSize_rangestart = st.number_input('start', value=100, step=50, key='minChdSize_rangestart')
+        minChdSize_rangestart = st.number_input('**min chd size** start', value=100, step=50, key='minChdSize_rangestart')
     with col2:
         minChdSize_rangeend = st.number_input('end', value=200, step=50, key='minChdSize_rangeend')
     with col3:
@@ -60,7 +60,7 @@ with tab2:
 
     col1, col2, col3 = st.columns(3)
     with col1:
-        maxChdSize_rangestart = st.number_input('start', value=1500, step=100, key='maxChdSize_rangestart')
+        maxChdSize_rangestart = st.number_input('**max chd size** start', value=1500, step=100, key='maxChdSize_rangestart')
     with col2:
         maxChdSize_rangeend = st.number_input('end', value=2000, step=100, key='maxChdSize_rangeend')
     with col3:
