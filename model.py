@@ -9,6 +9,8 @@ from matplotlib.patches import Rectangle
 # import os
 # current_dir = os.getcwd()
 
+st.session_state.dfParameters = pd.read_csv('chondrules 2D-3D distributions results file.csv')
+
 st.title('2D/3D model')
 
 tab1, tab2, tab3 = st.tabs(['explore', 'run a model', 'switch'])
@@ -37,7 +39,6 @@ with tab2:
     with col3:
         mu3Dstep = st.number_input('steps', value=.2, step=.2, key='mu3Dstep')
     mu3DList = [x/10 for x in range(int(mu3DStart*10), int((mu3DSEnd+.2)*10), int(mu3Dstep*10))]
-    mu3DList.insert(0, 'µ 3D')
 
     col1, col2, col3 = st.columns(3)
     with col1:
@@ -47,7 +48,6 @@ with tab2:
     with col3:
         iniSigmastep = st.number_input('steps', value=.1, step=.1, key='iniSigmastep')
     iniSigma_List = [x/10 for x in range(int(iniSigmastart*10), int((iniSigmaend+.1)*10), int(iniSigmastep*10))]
-    mu3DList.insert(0, 'initial ')
 
     col1, col2, col3 = st.columns(3)
     with col1:
@@ -57,7 +57,6 @@ with tab2:
     with col3:
         minChdSize_rangestep = st.number_input('steps', value=50, step=50, key='minChdSize_rangestep')
     minChdSize_range = [x/10 for x in range(int(minChdSize_rangestart*10), int((minChdSize_rangeend+.1)*10), int(minChdSize_rangestep*10))]
-    mu3DList.insert(0, 'µ 3D')
 
     col1, col2, col3 = st.columns(3)
     with col1:
@@ -67,7 +66,6 @@ with tab2:
     with col3:
         maxChdSize_rangestep = st.number_input('steps', value=500, step=100, key='maxChdSize_rangestep')
     maxChdSize_range = [x/10 for x in range(int(maxChdSize_rangestart*10), int((maxChdSize_rangeend+.1)*10), int(maxChdSize_rangestep*10))]
-    mu3DList.insert(0, 'µ 3D')
    
     col1, col2 = st.columns(2)
     with col1:
@@ -77,14 +75,11 @@ with tab2:
     numberOfChondrules = 10**numberOfChondrules_power
     zAxisLength = 10**zAxisLength_power
 
+    model_parameter_names = ['µ 3D', 'σ initial', 'min chd size', 'max chd size', 'nr of chd', 'length y-axis']
+    parameter_table = pd.DataFrame([mu3DList, iniSigma_List, minChdSize_range, maxChdSize_range, [numberOfChondrules], [zAxisLength]])
+    parameter_table.insert(0, 'parameter', model_parameter_names)
 
-    st.dataframe(pd.DataFrame([
-        mu3DList,
-        iniSigma_List,
-        minChdSize_range,
-        maxChdSize_range,
-        [numberOfChondrules, zAxisLength]
-        ]))
+    st.dataframe(parameter_table)
 
 
     if st.button('calculate'):
