@@ -110,5 +110,5 @@ with tab3:
     zAxisLength = 10**4
     maxChdSize = 1500
 
-    with button('show plots'):
+    with st.button('show plots'):
         utils.func.switch_plot(mu3D, sigma3Dini, numberOfChondrules, zAxisLength, maxChdSize)
