@@ -106,8 +106,8 @@ with tab3:
 
     mu3D = 6.2
     sigma3Dini = .1
-    numberOfChondrules = 10**7
-    zAxisLength = 10**5
+    numberOfChondrules = 10**6
+    zAxisLength = 10**4
     maxChdSize = 1500
 
     def switch_plot(mu3D, sigma3Dini, numberOfChondrules, zAxisLength, maxChdSize):
@@ -137,7 +137,6 @@ with tab3:
             
                 axs[i,j].hist(dfChdList['Chd Diameter'], 1000, density = True, alpha = .2, label = '3D')
                 axs[i,j].hist(appChdDiameterList, 1000, density = True, alpha = .4, label = '2D')
-                
                 
                 # ax.set_ylabel('frequency')
                 axs[i,j].legend()
@@ -174,4 +173,4 @@ with tab3:
 
         return st.pyplot(fig)
 
-    # switch_plot(mu3D, sigma3Dini, numberOfChondrules, zAxisLength, maxChdSize)
+    switch_plot(mu3D, sigma3Dini, numberOfChondrules, zAxisLength, maxChdSize)
