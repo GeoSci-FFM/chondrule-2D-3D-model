@@ -129,21 +129,24 @@ def model_plot(max_chd_size, sel_mu3D, df_results):
 def switch_plot(mu3D, sigma3Dini, numberOfChondrules, zAxisLength, maxChdSize):
     plot_labels = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i']
 
+    model_progress_bar = st.progress(0)
+    loop_counter = 0
+
     # Clear previous plots
     plt.clf()
 
     fig, axs = plt.subplots(3, 3, sharex=True, sharey=True, figsize = (12.5, 7.5))
     plt.subplots_adjust(hspace=0)
     plt.subplots_adjust(wspace=0)
-
-    z=0
+    
+    z = 0
     for i in range(3):
         for j in range(3):
+            tot_loops = 9
+            loop_counter+=1
+            model_progress_bar.progress(loop_counter/tot_loops, text='calculating – this may take some time')
     # the mu of the parent 3D distribution is fixed at a typical value for chondrule size distributions
     #    mu3D = 6.2
-
-    # Simple progress counter
-    #    print(i)
             z+=1
             dfChdList = chd3DList(numberOfChondrules, zAxisLength, mu3D, sigma3Dini * z) # noc, zAxisLen, mu, sigma
             dfChdList = dfChdList[dfChdList['Chd Diameter'] < maxChdSize]
@@ -171,6 +174,8 @@ def switch_plot(mu3D, sigma3Dini, numberOfChondrules, zAxisLength, maxChdSize):
 
             axs[i,j].text(50, .0045, plot_labels[z-1])
 
+    model_progress_bar.empty()
+    st.write('Almost there, just finishing up some details.')
 
     for j, ax in enumerate(axs[-1]):
         if j == 1:
