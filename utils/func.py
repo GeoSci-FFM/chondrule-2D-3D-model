@@ -122,6 +122,25 @@ def model_plot(max_chd_size, sel_mu3D, df_results):
     return st.pyplot(plt)
 
 
+##-------------------------------------##
+##--- Plot 3D chd size distribution ---##
+##-------------------------------------##
+
+def chd_3D_size_distribution(mu, sigma):
+    x = np.linspace(1e-5, 2000, 1000)  # Start x from a small positive value to avoid division by zero
+    pdf = (1 / (x * sigma * np.sqrt(2 * np.pi))) * np.exp(- (np.log(x) - mu)**2 / (2 * sigma**2))
+
+    plt.clf()
+    
+    plt.plot(x, pdf, label=r'$\mu=5, \sigma=0.7$', color='orange')
+    plt.xlabel('Value')
+    plt.ylabel('Probability Density')
+    plt.title('Log-normal Distribution')
+    plt.legend()
+    plt.grid(True)
+    return st.pyplot(plt)
+
+
 ##------------------------------------------------------------------------------------------------------------------------------------------------##
 ##--- Histograms illustrating the switch of the mean 2D located to the left of the mean 3D to the mean 2D located to the right of the mean 3D  ---##
 ##------------------------------------------------------------------------------------------------------------------------------------------------##

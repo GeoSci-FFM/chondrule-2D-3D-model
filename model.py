@@ -104,11 +104,22 @@ with tab2:
 with tab3:
     st.write('Histograms illustrating the switch of the mean 2D located to the **left** of the mean 3D to the mean 2D located to the **right** of the mean 3D')
 
-    mu3D = 6.2
-    sigma3Dini = .1
-    numberOfChondrules = 10**6
-    zAxisLength = 10**4
-    maxChdSize = 1500
+    col1, col2, col3, col4, col5 = st.columns(5)
+    with col1:
+        mu3D_switch = st.number_input('µ 3D', value=6.2, step=.2)
+    with col2:
+        sigma3Dini_switch = st.number_input('σ initial', value=.1, step=.1)
+    with col3:
+        maxChdSize_switch = st.number_input('max chd size', value=1500, step=200)
+    with col4:
+        numberOfChondrules_switch = st.number_input('nr of chd 10^x', value=5, step=1)
+        numberOfChondrules_switch = 10**numberOfChondrules_switch
+    with col5:
+        zAxisLength_switch = st.number_input('length of z-axis 10^x', value=4, step=1)
+        zAxisLength_switch = 10**zAxisLength_switch
+
+    st.write('3D chondrule size distribution as defined by the only 2 parameters **µ 3D** and **σ initial**.')
+    utils.func.chd_3D_size_distribution(mu3D_switch, sigma3Dini_switch)
 
     if st.button('produce & show plots'):
-        utils.func.switch_plot(mu3D, sigma3Dini, numberOfChondrules, zAxisLength, maxChdSize)
+        utils.func.switch_plot(mu3D_switch, sigma3Dini_switch, numberOfChondrules_switch, zAxisLength_switch, maxChdSize_switch)
