@@ -7,7 +7,7 @@ st.session_state.dfParameters = pd.read_csv('chondrules 2D-3D distributions resu
 st.title('Revealing the relationship between 2D and 3D size-frequency distributions')
 st.markdown('Companion app to: Hezel & Metzler 2025. Revealing the relationship between 2D and 3D chondrule size-frequency distribution in a meteorite. *Meteoritics & Planetary Sciences* (re-submitted)')
 
-tab1, tab2, tab3 = st.tabs(['pre-calculated parameter space', 'apply own parameter space', 'histograms'])
+tab1, tab2, tab3 = st.tabs(['pre-calculated parameter space', 'apply own parameter space', 'distributions'])
 # the mu of the parent 3D distribution is fixed at a typical value for chondrule size distributions
 # taken from the metzler data fits below
 
@@ -121,5 +121,5 @@ with tab3:
     st.markdown('''Histograms illustrating the switch of the mean 2D located to the **left** of the mean 3D to the mean 2D located to the **right** of the mean 3D  
                 As the following plots iterate through **σ initial**, **σ initial** is the only value not taken from the selections in the dropdown menus above.''')
 
-    if st.button('produce & show plots'):
+    if st.button('show distributions'):
         utils.func.switch_plot(mu3D_switch, .1, numberOfChondrules_switch, zAxisLength_switch, maxChdSize_switch)
