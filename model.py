@@ -107,7 +107,7 @@ with tab3:
     with col2:
         sigma3Dini_switch = st.number_input('σ initial', value=.1, step=.1)
     with col3:
-        maxChdSize_switch = st.number_input('max chd size', value=1500, step=200, max_value=2000)
+        maxChdSize_switch = st.number_input('max chd size', value=1600, step=200, max_value=2000)
     with col4:
         numberOfChondrules_switch = st.number_input('nr of chd 10^x', value=5, step=1)
         numberOfChondrules_switch = 10**numberOfChondrules_switch
