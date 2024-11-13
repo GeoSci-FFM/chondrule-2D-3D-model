@@ -110,7 +110,7 @@ with tab3:
     with col2:
         sigma3Dini_switch = st.number_input('σ initial', value=.1, step=.1)
     with col3:
-        maxChdSize_switch = st.number_input('max chd size', value=1500, step=200)
+        maxChdSize_switch = st.number_input('max chd size', value=1500, step=200, max_value=2000)
     with col4:
         numberOfChondrules_switch = st.number_input('nr of chd 10^x', value=5, step=1)
         numberOfChondrules_switch = 10**numberOfChondrules_switch
@@ -118,7 +118,7 @@ with tab3:
         zAxisLength_switch = st.number_input('length of z-axis 10^x', value=4, step=1)
         zAxisLength_switch = 10**zAxisLength_switch
 
-    st.write('3D chondrule size distribution as defined by the only 2 parameters **µ 3D** and **σ initial**.')
+    st.write('Explore how the 3D chondrule size distribution changes in response to its defining parameters 2 parameters **µ 3D** and **σ initial**.')
     utils.func.chd_3D_size_distribution(mu3D_switch, sigma3Dini_switch, maxChdSize_switch)
 
     if st.button('produce & show plots'):
