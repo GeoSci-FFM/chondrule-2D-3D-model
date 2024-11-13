@@ -121,5 +121,8 @@ with tab3:
     st.write('Explore how the 3D chondrule size distribution changes in response to its defining parameters 2 parameters **µ 3D** and **σ initial**.')
     utils.func.chd_3D_size_distribution(mu3D_switch, sigma3Dini_switch, maxChdSize_switch)
 
+    st.divider()
+    st.write('As the following plots iterate through σ initial, this is the only value not taken from the dropdown menus above.')
+
     if st.button('produce & show plots'):
         utils.func.switch_plot(mu3D_switch, .1, numberOfChondrules_switch, zAxisLength_switch, maxChdSize_switch)
