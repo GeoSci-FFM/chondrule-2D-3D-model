@@ -12,13 +12,15 @@ from matplotlib.patches import Rectangle
 st.session_state.dfParameters = pd.read_csv('chondrules 2D-3D distributions results file.csv')
 
 st.title('2D/3D model')
+st.markdown('companion app to Hezel & Metzler 2025 xxx MAPS (re-submitted)')
 
 tab1, tab2, tab3 = st.tabs(['explore parameters', 'build your model', 'switch'])
 # the mu of the parent 3D distribution is fixed at a typical value for chondrule size distributions
 # taken from the metzler data fits below
 
 with tab1:
-    st.subheader('explore')
+    st.markdown('''The two areas in which the mean of the 2D distribution is smaller (blue) or larger (orange)
+                than the mean of the 3D distribution. Black points are data from measured ordinary chondrites.''')
 
     df_results = pd.read_csv('chondrules 2D-3D distributions results file.csv')
 
@@ -102,7 +104,7 @@ with tab2:
 
 
 with tab3:
-    st.write('Histograms illustrating the switch of the mean 2D located to the **left** of the mean 3D to the mean 2D located to the **right** of the mean 3D')
+    st.markdown('Explore how the 3D chondrule size distribution changes in response to its defining parameters 2 parameters **µ 3D** and **σ initial**.')
 
     col1, col2, col3, col4, col5 = st.columns(5)
     with col1:
@@ -118,11 +120,11 @@ with tab3:
         zAxisLength_switch = st.number_input('length of z-axis 10^x', value=4, step=1)
         zAxisLength_switch = 10**zAxisLength_switch
 
-    st.write('Explore how the 3D chondrule size distribution changes in response to its defining parameters 2 parameters **µ 3D** and **σ initial**.')
     utils.func.chd_3D_size_distribution(mu3D_switch, sigma3Dini_switch, maxChdSize_switch)
 
     st.divider()
-    st.write('As the following plots iterate through σ initial, this is the only value not taken from the dropdown menus above.')
+    st.markdown('''Histograms illustrating the switch of the mean 2D located to the **left** of the mean 3D to the mean 2D located to the **right** of the mean 3D  
+                As the following plots iterate through **σ initial**, **σ initial** is the only value not taken from the selections in the dropdown menus above.''')
 
     if st.button('produce & show plots'):
         utils.func.switch_plot(mu3D_switch, .1, numberOfChondrules_switch, zAxisLength_switch, maxChdSize_switch)
