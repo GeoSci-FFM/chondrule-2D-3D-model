@@ -120,3 +120,74 @@ def model_plot(max_chd_size, sel_mu3D, df_results):
     plt.ylabel('minimum sphere diameter (µm)')
 
     return st.pyplot(plt)
+
+
+
+
+
+
+def switch_plot(mu3D, sigma3Dini, numberOfChondrules, zAxisLength, maxChdSize):
+    plot_labels = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i']
+
+    # Clear previous plots
+    plt.clf()
+    
+    fig, axs = plt.subplots(3, 3, sharex=True, sharey=True, figsize = (12.5, 7.5))
+    plt.subplots_adjust(hspace=0)
+    plt.subplots_adjust(wspace=0)
+
+    z=0
+    for i in range(3):
+        for j in range(3):
+    # the mu of the parent 3D distribution is fixed at a typical value for chondrule size distributions
+    #    mu3D = 6.2
+
+    # Simple progress counter
+    #    print(i)
+            z+=1
+            dfChdList = utils.func.chd3DList(numberOfChondrules, zAxisLength, mu3D, sigma3Dini * z) # noc, zAxisLen, mu, sigma
+            dfChdList = dfChdList[dfChdList['Chd Diameter'] < maxChdSize]
+            appChdDiameterList = utils.func.sectionedChd(.5 * zAxisLength, dfChdList)
+            muFit, SigmaFit = utils.func.calcMuSigma(appChdDiameterList)
+            muFit3D, SigmaFit3D = utils.func.calcMuSigma(dfChdList['Chd Diameter'])
+        
+            # plotting and formatting the figure
+            xAxisMax = maxChdSize
+        
+            axs[i,j].hist(dfChdList['Chd Diameter'], 1000, density = True, alpha = .2, label = '3D')
+            axs[i,j].hist(appChdDiameterList, 1000, density = True, alpha = .4, label = '2D')
+            
+            # ax.set_ylabel('frequency')
+            axs[i,j].legend()
+            
+            axs[i,j].text(.76, .6, r'$\mu$ 3D: ' + str(mu3D), horizontalalignment = 'left', transform = axs[i,j].transAxes)
+            axs[i,j].text(.76, .5, r'$\sigma$ 3D: ' + str(round(.1*z, 1)), horizontalalignment = 'left', color = 'purple', transform = axs[i,j].transAxes)
+            # axs[i, j].text(0.5, 0.5, 'Text', ha='center', va='center', transform=axs[i, j].transAxes)
+            axs[i,j].vlines(np.e**(muFit3D + 0.5 * SigmaFit3D**2), 0, .005, linestyles = 'dashed', colors = 'blue')
+            axs[i,j].vlines(np.e**(muFit + 0.5 * SigmaFit**2), 0, .005, linestyles = 'dashed', colors = 'red')
+        
+            axs[i,j].set_xlim(0, xAxisMax)
+            axs[i,j].set_ylim(0, .005)
+
+            axs[i,j].text(50, .0045, plot_labels[z-1])
+
+
+    for j, ax in enumerate(axs[-1]):
+        if j == 1:
+            ax.set_xlabel('sphere size (µm)', fontsize=14)
+        else:
+            ax.set_xlabel('')  # Empty string for x-axis label
+            
+    for ax in axs[-1]:
+        ax.tick_params(axis='x', which='both', bottom=True, top=False, labelbottom=True)
+
+    for i, ax_row in enumerate(axs):
+        for j, ax in enumerate(ax_row):
+            if i == 1 and j == 0:
+                ax.set_ylabel('frequency', rotation=90, fontsize=14) # or: normalised abundances
+                ax.yaxis.set_ticks_position('none')  # Remove ticks
+            else:
+                ax.set_yticklabels([])  # Remove tick labels
+                ax.set_yticks([])  # Remove ticks
+
+    return st.pyplot(fig)
