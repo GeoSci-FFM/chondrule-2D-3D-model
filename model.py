@@ -12,7 +12,7 @@ from matplotlib.patches import Rectangle
 st.session_state.dfParameters = pd.read_csv('chondrules 2D-3D distributions results file.csv')
 
 st.title('2D/3D model')
-st.markdown('companion app to Hezel & Metzler 2025 xxx MAPS (re-submitted)')
+st.markdown('companion app to Hezel & Metzler 2025 Revealing the relationship between 2D and 3D chondrule size-frequency distribution in a meteorite. Meteoritics & Planetary Sciences (re-submitted)')
 
 tab1, tab2, tab3 = st.tabs(['explore parameters', 'build your model', 'switch'])
 # the mu of the parent 3D distribution is fixed at a typical value for chondrule size distributions
