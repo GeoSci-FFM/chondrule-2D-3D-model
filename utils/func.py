@@ -205,7 +205,7 @@ def switch_plot(mu3D, sigma3Dini, numberOfChondrules, zAxisLength, maxChdSize):
             ax.set_xlabel('sphere size (µm)', fontsize=14)
         else:
             ax.set_xlabel('')  # Empty string for x-axis label
-            
+    
     for ax in axs[-1]:
         ax.tick_params(axis='x', which='both', bottom=True, top=False, labelbottom=True)
 
