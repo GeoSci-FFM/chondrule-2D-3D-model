@@ -198,8 +198,7 @@ def switch_plot(mu3D, sigma3Dini, numberOfChondrules, zAxisLength, maxChdSize):
             axs[i,j].text(50, .0045, plot_labels[z-1])
 
     model_progress_bar.empty()
-    st.write('Almost there, just finishing up some details.')
-
+    
     for j, ax in enumerate(axs[-1]):
         if j == 1:
             ax.set_xlabel('sphere size (µm)', fontsize=14)
@@ -209,6 +208,7 @@ def switch_plot(mu3D, sigma3Dini, numberOfChondrules, zAxisLength, maxChdSize):
     for ax in axs[-1]:
         ax.tick_params(axis='x', which='both', bottom=True, top=False, labelbottom=True)
 
+    st.write('preparing plots ... (this might take a few seconds)')
     for i, ax_row in enumerate(axs):
         for j, ax in enumerate(ax_row):
             if i == 1 and j == 0:
