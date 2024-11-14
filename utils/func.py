@@ -90,7 +90,7 @@ def run_model(mu3DList, iniSigma_List, minChdSize_range, maxChdSize_range, numbe
                     parameters2D = [muFit2D, sigmaFit2D, np.e**(muFit2D + .5 * sigmaFit2D**2), np.e**muFit2D, np.e**(muFit2D - sigmaFit2D**2)]
                     parameters.append([len(appChdDiameterList), minChdSize, maxChdSize, mu3D, iniSigma] + parameters3D + parameters2D)
                     loop_counter+=1
-                    model_progress_bar.progress(loop_counter/tot_loops, text='calculating – this may take some time')
+                    model_progress_bar.progress(loop_counter/tot_loops, text='working ...')
     model_progress_bar.empty()
     st.session_state.dfParameters = pd.DataFrame(parameters)
 
