@@ -24,8 +24,12 @@ with tab1:
         sel_mu3D = st.selectbox('initial $\mu$ 3D', df_results['initial $\mu$ 3D'].unique(), index=1)
     
     utils.func.model_plot(max_chd_size, sel_mu3D, df_results)
-    utils.func.sigma2D_vs_sigma3D()
-    utils.func.sigma2D_vs_mu3D()
+
+    col1, col2 = st.columns(2)
+    with col1:
+        utils.func.sigma2D_vs_sigma3D()
+    with col2:
+        utils.func.sigma2D_vs_mu3D()
 
 with tab2:
     col1, col2, col3 = st.columns(3)
