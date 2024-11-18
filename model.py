@@ -3,17 +3,6 @@ import utils.func
 import pandas as pd
 
 
-dfPara = pd.read_csv('chondrules 2D-3D distributions results file.csv')
-selParam = dfPara.columns.tolist()
-xAxis = selParam[12]
-yAxis = selParam[5]
-
-st.write(xAxis)
-st.write(yAxis)
-
-
-
-
 st.session_state.dfParameters = pd.read_csv('chondrules 2D-3D distributions results file.csv')
 
 st.title('Revealing the relationship between 2D and 3D size-frequency distributions')

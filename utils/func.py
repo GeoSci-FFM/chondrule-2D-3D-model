@@ -7,8 +7,6 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 from matplotlib.patches import Rectangle
 
-def test_func(a):
-    st.write(a)
 
 ##-------------------------------------------------------------##
 ##--- Make the 3D Chondrule List ------------------------------##
