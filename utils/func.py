@@ -223,12 +223,20 @@ def switch_plot(mu3D, sigma3Dini, numberOfChondrules, zAxisLength, maxChdSize):
 ##--- Plot sigma2D vs sigma3D ---##
 ##-------------------------------##
 
-def sigma2D_vs_sigma3D(sel_mu3D):
-    dfPara = pd.read_csv('chondrules 2D-3D distributions results file.csv')
-    selParam = dfPara.columns.tolist()
-    xAxis = selParam[12]
-    yAxis = selParam[5]
+def sigma2D_vs_sigma3D(sel_mu3D, dfPara):
+    # dfPara = pd.read_csv('chondrules 2D-3D distributions results file.csv')
+    # dfPara = df_results
+    # selParam = dfPara.columns.tolist()
+    # xAxis = selParam[12]
+    # yAxis = selParam[5]
 
+    minChdSize_min = min(dfPara[r'min. Chd Diameter'])
+    minChdSize_max = max(dfPara[r'min. Chd Diameter'])
+    maxChdSize_min = min(dfPara[r'max. Chd Diameter'])
+    maxChdSize_max = max(dfPara[r'max. Chd Diameter'])
+    xAxis = r'$\sigma$ Fit 2D'
+    yAxis = r'initial $\sigma$ 3D'
+    
     plt.clf()
     # plt.text(.32, .97, 'a', fontsize=14)
     plt.text(.32, .97, f'µ 3D: {sel_mu3D}', c='dimgrey')
@@ -237,9 +245,9 @@ def sigma2D_vs_sigma3D(sel_mu3D):
     x = np.linspace(0, 1.7, 50)
     plt.plot(x, 1.19 * x - .27, color = 'black', linestyle='--', lw = 1)
 
-    for mark, maxChdSize in [['o', 1000], ['v', 2000], ['d', 4000]]:
+    for mark, maxChdSize in [['o', maxChdSize_min], ['d', maxChdSize_max]]: # [['o', 1000], ['v', 2000], ['d', 4000]]:
         for mu3D in [sel_mu3D]:
-            for col, minChdSize in [['royalblue', 0], ['sienna', 400]]:
+            for col, minChdSize in [['royalblue', minChdSize_min], ['sienna', minChdSize_max]]:
                 fil = (dfPara['min. Chd Diameter'] == minChdSize) & (dfPara['max. Chd Diameter'] == maxChdSize) & (dfPara[r'initial $\mu$ 3D'] == mu3D)
                 if maxChdSize == 2000:
                     plt.scatter(dfPara[fil][xAxis], dfPara[fil][yAxis], label=minChdSize, marker=mark, s=25, c=col)
@@ -258,15 +266,14 @@ def sigma2D_vs_sigma3D(sel_mu3D):
 
 
     legend_handles = [
-        plt.Line2D([], [], color='sienna', linestyle='-', label='min size: 400'),
-        plt.Line2D([], [], color='royalblue', linestyle='-', label='min size: 0'),
-        plt.Line2D([], [], color='black', marker='o', linestyle='None', markersize=5, label='max size: 1000'),
-        plt.Line2D([], [], color='black', marker='v', linestyle='None', markersize=5, label='max size: 2000'),
-        plt.Line2D([], [], color='black', marker='d', linestyle='None', markersize=5, label='max size: 4000')
+        plt.Line2D([], [], color='sienna', linestyle='-', label=f'min chd size: {minChdSize_max}'),
+        plt.Line2D([], [], color='royalblue', linestyle='-', label=f'min chd size: {minChdSize_min}'),
+        plt.Line2D([], [], color='black', marker='o', linestyle='None', markersize=5, label=f'max chd size: {maxChdSize_max}'),
+        plt.Line2D([], [], color='black', marker='d', linestyle='None', markersize=5, label=f'max chd size: {maxChdSize_min}')
     ]
 
     plt.legend(handles=legend_handles) #, title='legend title')
-
+    # return st.write(dfPara[xAxis], dfPara[yAxis])
     return st.pyplot(plt)
 
 
@@ -274,11 +281,19 @@ def sigma2D_vs_sigma3D(sel_mu3D):
 ##--- Plot sigma2D vs mu3D ---##
 ##----------------------------##
 
-def sigma2D_vs_mu3D(sel_sigma):
-    dfPara = pd.read_csv('chondrules 2D-3D distributions results file.csv')
-    selParam = dfPara.columns.tolist()
-    xAxis = selParam[11]
-    yAxis = selParam[4]
+def sigma2D_vs_mu3D(sel_sigma, dfPara):
+    # dfPara = pd.read_csv('chondrules 2D-3D distributions results file.csv')
+    # dfPara = df_results
+    # selParam = dfPara.columns.tolist()
+    # xAxis = selParam[11]
+    # yAxis = selParam[4]
+
+    minChdSize_min = min(dfPara[r'min. Chd Diameter'])
+    minChdSize_max = max(dfPara[r'min. Chd Diameter'])
+    maxChdSize_min = min(dfPara[r'max. Chd Diameter'])
+    maxChdSize_max = max(dfPara[r'max. Chd Diameter'])
+    xAxis = r'$\mu$ Fit 2D'
+    yAxis = r'initial $\mu$ 3D'
 
     plt.clf()
     # plt.text(5.84, 6.56, 'b', fontsize=14)
@@ -288,8 +303,8 @@ def sigma2D_vs_mu3D(sel_sigma):
     plt.plot(x, x, linestyle=':', c='grey', lw = 1)
 
     for sigma in [sel_sigma]: #[.02] + [x/10 for x in range(2, 20, 2)] + [1.98]:
-        for l_style, maxChdSize in [['-', 1000], ['--', 2000], ['-.', 4000]]:
-            for col, minChdSize in [['royalblue', 0], ['sienna', 400]]:
+        for l_style, maxChdSize in [['-', maxChdSize_min], ['-.', maxChdSize_max]]:
+            for col, minChdSize in [['royalblue', minChdSize_min], ['sienna', minChdSize_max]]:
                 fil = (dfPara['min. Chd Diameter'] == minChdSize) & (dfPara['max. Chd Diameter'] == maxChdSize) & (dfPara[r'initial $\sigma$ 3D'] == sigma)
                 plt.plot(dfPara[fil][xAxis], dfPara[fil][yAxis], linestyle=l_style, color=col, label=sigma)
 
@@ -300,11 +315,10 @@ def sigma2D_vs_mu3D(sel_sigma):
     plt.xticks(fontsize=14)
     plt.yticks(fontsize=14)
     legend_handles = [
-        plt.Line2D([], [], color='royalblue', linestyle='-', label='min size: 0'),
-        plt.Line2D([], [], color='sienna', linestyle='-', label='min size: 400'),
-        plt.Line2D([], [], color='black', linestyle='-', label='max size: 1000'),
-        plt.Line2D([], [], color='black', linestyle='--', label='max size: 2000'),
-        plt.Line2D([], [], color='black', linestyle='-.', label='max size: 4000')
+        plt.Line2D([], [], color='royalblue', linestyle='-', label=f'min chd size: {minChdSize_max}'),
+        plt.Line2D([], [], color='sienna', linestyle='-', label=f'min chd size: {minChdSize_min}'),
+        plt.Line2D([], [], color='black', linestyle='-', label=f'max chd size: {maxChdSize_max}'),
+        plt.Line2D([], [], color='black', linestyle='-.', label=f'max chd size: {maxChdSize_min}')
     ]
     plt.legend(handles = legend_handles, loc='lower right')
     return st.pyplot(plt)

@@ -30,9 +30,9 @@ with tab1:
     with col1:
         utils.func.model_plot(max_chd_size, sel_mu3D, df_results)
     with col2:
-        utils.func.sigma2D_vs_sigma3D(sel_mu3D)
+        utils.func.sigma2D_vs_sigma3D(sel_mu3D, df_results)
     with col3:
-        utils.func.sigma2D_vs_mu3D(sel_sigma)
+        utils.func.sigma2D_vs_mu3D(sel_sigma, df_results)
 
 with tab2:
     col1, col2, col3 = st.columns(3)
@@ -84,8 +84,7 @@ with tab2:
     parameter_table.insert(0, 'parameter', model_parameter_names)
 
     st.dataframe(parameter_table)
-
-
+    
     if st.button('calculate'):
         utils.func.run_model(mu3DList, iniSigma_List, minChdSize_range, maxChdSize_range, numberOfChondrules, zAxisLength)
         # st.write('finished')
@@ -93,16 +92,23 @@ with tab2:
     with st.expander('Results Table'):
         st.dataframe(st.session_state.dfParameters)
 
-
     df_results_own = st.session_state.dfParameters
 
-    col1, col2 = st.columns(2)
+    col1, col2, col3 = st.columns(3)
     with col1:
         max_chd_size_own_model = st.selectbox('max. chd. diameter', df_results_own['max. Chd Diameter'].unique(), index=1, key='max_chd_size_own_model')
     with col2:
         sel_mu3D_own_model = st.selectbox('initial $\mu$ 3D', df_results_own['initial $\mu$ 3D'].unique(), index=1, key='sel_mu3D_own_model')
+    with col3:
+        sel_sigma_own_model = st.selectbox('initial $\sigma$', df_results_own['initial $\sigma$ 3D'].unique())
 
-    utils.func.model_plot(max_chd_size_own_model, sel_mu3D_own_model, df_results_own)
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        utils.func.model_plot(max_chd_size_own_model, sel_mu3D_own_model, df_results_own)
+    with col2:
+        utils.func.sigma2D_vs_sigma3D(sel_mu3D_own_model, df_results_own)
+    with col3:
+        utils.func.sigma2D_vs_mu3D(sel_sigma, df_results_own)
 
 
 with tab3:
