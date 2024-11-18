@@ -2,6 +2,18 @@ import streamlit as st
 import utils.func
 import pandas as pd
 
+
+dfPara = pd.read_csv('chondrules 2D-3D distributions results file.csv')
+selParam = dfPara.columns.tolist()
+xAxis = selParam[12]
+yAxis = selParam[5]
+
+st.write(xAxis)
+st.write(yAxis)
+
+
+
+
 st.session_state.dfParameters = pd.read_csv('chondrules 2D-3D distributions results file.csv')
 
 st.title('Revealing the relationship between 2D and 3D size-frequency distributions')
@@ -17,19 +29,21 @@ with tab1:
 
     df_results = pd.read_csv('chondrules 2D-3D distributions results file.csv')
 
-    col1, col2 = st.columns(2)
+    col1, col2, col3 = st.columns(3)
     with col1:
         max_chd_size = st.selectbox('max. chd. diameter', df_results['max. Chd Diameter'].unique(), index=1)
     with col2:
         sel_mu3D = st.selectbox('initial $\mu$ 3D', df_results['initial $\mu$ 3D'].unique(), index=1)
-    
-    utils.func.model_plot(max_chd_size, sel_mu3D, df_results)
+    with col3:
+        sel_sigma = st.selectbox('initial $\sigma$', df_results['initial $\sigma$ 3D'].unique(), index=11)
 
-    col1, col2 = st.columns(2)
+    col1, col2, col3 = st.columns(3)
     with col1:
-        utils.func.sigma2D_vs_sigma3D()
+        utils.func.model_plot(max_chd_size, sel_mu3D, df_results)
     with col2:
-        utils.func.sigma2D_vs_mu3D()
+        utils.func.sigma2D_vs_sigma3D(sel_mu3D)
+    with col3:
+        utils.func.sigma2D_vs_mu3D(sel_sigma)
 
 with tab2:
     col1, col2, col3 = st.columns(3)
