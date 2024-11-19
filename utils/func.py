@@ -272,16 +272,16 @@ def sigma2D_vs_sigma3D(sel_mu3D, dfPara):
         plt.Line2D([], [], color='black', marker='d', linestyle='None', markersize=5, label=f'max chd size: {maxChdSize_min}')
     ]
 
-    plt.legend(handles=legend_handles) #, title='legend title')
+    plt.legend(handles=legend_handles, loc='lower right') #, title='legend title')
     # return st.write(dfPara[xAxis], dfPara[yAxis])
     return st.pyplot(plt)
 
 
 ##----------------------------##
-##--- Plot sigma2D vs mu3D ---##
+##--- Plot mu2D vs mu3D ---##
 ##----------------------------##
 
-def sigma2D_vs_mu3D(sel_sigma, dfPara):
+def mu2D_vs_mu3D(sel_sigma, dfPara):
     # dfPara = pd.read_csv('chondrules 2D-3D distributions results file.csv')
     # dfPara = df_results
     # selParam = dfPara.columns.tolist()
