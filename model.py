@@ -6,13 +6,21 @@ if 'dfParameters' not in st.session_state:
     st.session_state.dfParameters = pd.read_csv('chondrules 2D-3D distributions results file.csv')
 
 st.title('Revealing the relationship between 2D and 3D size-frequency distributions')
-st.markdown('Companion app to: Hezel et al. 2025. Revealing the relationship between 2D and 3D chondrule size-frequency distribution in a meteorite. *Meteoritics & Planetary Sciences* (re-submitted)')
 
-tab1, tab2, tab3 = st.tabs(['pre-calculated parameter space', 'apply own parameter space', 'distributions'])
+tab1, tab2, tab3, tab4, tab5 = st.tabs(['Intro', 'pre-calculated parameter space', 'apply own parameter space', 'distributions', 'abstract'])
 # the mu of the parent 3D distribution is fixed at a typical value for chondrule size distributions
 # taken from the metzler data fits below
 
 with tab1:
+    st.markdown('''This is the companion app to:  
+                Hezel et al. 2025. Revealing the relationship between 2D and 3D
+                chondrule size-frequency distribution in a meteorite. *Meteoritics & Planetary Sciences* (re-submitted)  
+                The abstract of this paper can be found in the last tab of this app.
+                ''')
+    st.markdown('''
+                ''')
+
+with tab2:
     st.markdown('''The two areas in which the mean of the 2D distribution is smaller (blue) or larger (orange)
                 than the mean of the 3D distribution. Black points are data from measured ordinary chondrites.''')
 
@@ -34,7 +42,7 @@ with tab1:
     with col3:
         utils.func.mu2D_vs_mu3D(sel_sigma, df_results)
 
-with tab2:
+with tab3:
     col1, col2, col3 = st.columns(3)
     with col1:
         mu3DStart = st.number_input('**µ 3D mean** start', value=6.2, step=.2, key='mu3Dstart')
@@ -110,7 +118,7 @@ with tab2:
             utils.func.mu2D_vs_mu3D(sel_sigma_own_model, st.session_state.dfParameters)
 
 
-with tab3:
+with tab4:
     st.markdown('Explore how the 3D chondrule size distribution changes in response to its defining parameters 2 parameters **µ 3D** and **σ initial**.')
 
     col1, col2, col3, col4, col5 = st.columns(5)
@@ -135,3 +143,10 @@ with tab3:
 
     if st.button('show distributions'):
         utils.func.switch_plot(mu3D_switch, .1, numberOfChondrules_switch, zAxisLength_switch, maxChdSize_switch)
+
+with tab5:
+    st.subheader('Abstract')
+    st.markdown('''	Chondrule size-frequency distributions provide important information to understand the origin of chondrules. Size-frequency distributions are often obtained as apparent 2D size-frequency distributions in thin sections, as determining a 3D size-frequency distribution is notoriously difficult. The relationship between a 2D size-frequency distribution and its corresponding 3D size-frequency distribution has been previously modelled, however, the results contradict measured results. Models so far predict a higher mean of the 2D size-frequency distribution than the corresponding mean of the 3D size-frequency distribution, while measurements of real chondrule populations show the opposite. Here we use a new model approach that agrees with these measurements and at the same time offers a solution, why models so far predicted the opposite. Our new model provides a tool with which the 3D chondrule size-frequency distribution can be determined from the fit of a measured 2D chondrule size-frequency distribution.
+                ''')
+    st.markdown('''Hezel et al. 2025. Revealing the relationship between 2D and 3D
+                chondrule size-frequency distribution in a meteorite. *Meteoritics & Planetary Sciences* (re-submitted)''')
