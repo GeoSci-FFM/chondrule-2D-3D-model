@@ -21,7 +21,7 @@ with tab1:
                 ''')
 
     st.subheader('How this works')
-    st.markdown('<div style="color: grey">Some more detailed explanations are in the works.</div>', unsafe_allow_html=True)
+    st.markdown('<div style="color: grey">Some more detailed explanations to understand this independently from the cited paper above are in the works.</div>', unsafe_allow_html=True)
     st.markdown('<h5>pre-calculated parameters</h5>', unsafe_allow_html=True)
     st.markdown('See how Fig. 3 and Fig. 5a,b change in response to changing the max. chondrule diameter, the initial µ3D, and the inital $\sigma$.')
 
