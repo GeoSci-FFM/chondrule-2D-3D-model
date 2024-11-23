@@ -7,18 +7,31 @@ if 'dfParameters' not in st.session_state:
 
 st.title('Revealing the relationship between 2D and 3D size-frequency distributions')
 
-tab1, tab2, tab3, tab4, tab5 = st.tabs(['Intro', 'pre-calculated parameter space', 'apply own parameter space', 'distributions', 'abstract'])
+tab1, tab2, tab3, tab4, tab5 = st.tabs(['Intro', 'pre-calculated parameters', 'own parameters', 'distributions', 'abstract'])
 # the mu of the parent 3D distribution is fixed at a typical value for chondrule size distributions
 # taken from the metzler data fits below
 
 with tab1:
-    st.markdown('''This is the companion app to:  
+    st.markdown('''**This is the companion app to**  
                 Hezel et al. 2025. Revealing the relationship between 2D and 3D
                 chondrule size-frequency distribution in a meteorite. *Meteoritics & Planetary Sciences* (re-submitted)  
                 The abstract of this paper can be found in the last tab of this app.
                 ''')
     st.markdown('''
                 ''')
+
+    st.subheader('How this works')
+    st.markdown('<div style="color: grey">Some more detailed explanations are in the works.</div>', unsafe_allow_html=True)
+    st.markdown('<h5>pre-calculated parameters</h5>', unsafe_allow_html=True)
+    st.markdown('See how Fig. 3 and Fig. 5a,b change in response to changing the max. chondrule diameter, the initial µ3D, and the inital $\sigma$.')
+
+    st.markdown('<h5>own parameters</h5>', unsafe_allow_html=True)
+    st.markdown('Here any parameter for initial chondrule size distribution can be defined, and then seen how this affects Fig. 3 and Fig. 5 a,b.')
+
+    st.markdown('<h5>distributions</h5>', unsafe_allow_html=True)
+    st.markdown('''Here the general shape of a log-normal distributin can be explored to see what parameters are sensible for a chondrule size-frequency distribution.  
+                Using these parameters, Fig. 4 can then be produced to see how the mean of the 3D and corresponding 2D size-freuquency distributions change.''')
+
 
 with tab2:
     st.markdown('''The two areas in which the mean of the 2D distribution is smaller (blue) or larger (orange)
