@@ -1,7 +1,8 @@
 # Companion Repo for the MAPS publication ->  
 *Hezel DC, Metzler K, Hochstein M (2025) Revealing the relationship between 2-D and 3-D chondrule size–frequency distribution in a meteorite. Meteoritics & Planetary Science (accepted).  [doi: 10.1111/maps.14336](https://doi.org/10.1111/maps.14336)*  
 
-The accompanying web-app can be found [here](https://chondrule-2d3d-model.streamlit.app).
+The Jupyter Notebook used for the model (chondrule 2D-3D model.ipynb) can be viewed and downloaded from the above list. It is the latest version that has been tested before upload.  
+The accompanying web-app is essentially identical to the Jupyter Notebook, but has a graphical user interface for convenient experimentation with the various parameters. I contains few illustrative, additional material. The web-app can be found [here](https://chondrule-2d3d-model.streamlit.app).
 
 **Abstract**  
 Chondrule size–frequency distributions provide important information to understand the origin of chondrules. Size–frequency distributions are often obtained as apparent 2-D size–frequency distributions in thin sections, as determining a 3-D size frequency distribution is notoriously difficult. The relationship between a 2-D size–frequency distribution and its corresponding 3-D size–frequency distribution has been previously modeled; however, the results contradict measured results. Models so far predict a higher mean of the 2-D size–frequency distribution than the corresponding mean of the 3-D size–frequency distribution, while the measurements of real chondrule populations show the opposite. Here, we use a new model approach that agrees with these measurements and at the same time offers a solution, why models so far predicted the opposite. Our new model provides a tool with which the 3-D chondrule size–frequency distribution can be determined from the fit of a measured 2-D chondrule size–frequency distribution.
