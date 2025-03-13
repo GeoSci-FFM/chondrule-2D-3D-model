@@ -3,6 +3,7 @@ import numpy as np
 import pandas as pd
 from scipy import stats
 import random
+import time
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 from matplotlib.patches import Rectangle
@@ -59,6 +60,18 @@ def calcMuSigma(sample):
 ##-----------------------##
 ##--- The 2D/3D model ---##
 ##-----------------------##
+
+# Debounce input changes to prevent app crashes from rapid clicking.
+def update_values():
+    time.sleep(0.5)  # Small delay to prevent excessive updates
+    for key in [
+        "iniSigmastart", "iniSigmaend", "iniSigmastep",
+        "minChdSize_rangestart", "minChdSize_rangeend", "minChdSize_rangestep",
+        "maxChdSize_rangestart", "maxChdSize_rangeend", "maxChdSize_rangestep",
+        "numberOfChondrules_power", "zAxisLength_power"
+    ]:
+        st.session_state[key] = st.session_state.get(key, None)
+    
 
 def run_model(mu3DList, iniSigma_List, minChdSize_range, maxChdSize_range, numberOfChondrules, zAxisLength):
     tot_loops = len(maxChdSize_range) * len(mu3DList) * len(iniSigma_List) * len(minChdSize_range)

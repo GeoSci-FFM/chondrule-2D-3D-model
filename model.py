@@ -2,26 +2,24 @@ import streamlit as st
 import utils.func
 import pandas as pd
 
+
 if 'dfParameters' not in st.session_state:
     st.session_state.dfParameters = pd.read_csv('chondrules 2D-3D distributions results file.csv')
 
 st.title('Revealing the relationship between 2D and 3D size-frequency distributions')
 
 tab1, tab2, tab3, tab4, tab5 = st.tabs(['Intro', 'pre-calculated parameters', 'own parameters', 'distributions', 'abstract'])
-# the mu of the parent 3D distribution is fixed at a typical value for chondrule size distributions
-# taken from the metzler data fits below
 
 with tab1:
     st.markdown('''**This is the companion app to**  
                 Hezel et al. 2025. Revealing the relationship between 2D and 3D
-                chondrule size-frequency distribution in a meteorite. *Meteoritics & Planetary Sciences* (re-submitted)  
+                chondrule size-frequency distribution in a meteorite. *Meteoritics & Planetary Sciences* (in press) [doi: 10.1111/maps.14336](https://doi.org/10.1111/maps.14336)  
                 The abstract of this paper can be found in the last tab of this app.
                 ''')
     st.markdown('''
                 ''')
 
     st.subheader('How this works')
-    st.markdown('<div style="color: grey">Some more detailed explanations to understand this independently from the cited paper above are in the works.</div>', unsafe_allow_html=True)
     st.markdown('<h5>pre-calculated parameters</h5>', unsafe_allow_html=True)
     st.markdown('See how Fig. 3 and Fig. 5a,b change in response to changing the max. chondrule diameter, the initial µ3D, and the inital $\sigma$.')
 
@@ -31,11 +29,13 @@ with tab1:
     st.markdown('<h5>distributions</h5>', unsafe_allow_html=True)
     st.markdown('''Here the general shape of a log-normal distributin can be explored to see what parameters are sensible for a chondrule size-frequency distribution.  
                 Using these parameters, Fig. 4 can then be produced to see how the mean of the 3D and corresponding 2D size-freuquency distributions change.''')
-
+    st.info('Feel free to contact the first author of the paper should you require assistance with this app or have any other question.')
+    st.warning('Should any part of the programme crash – simply reload the page.')
 
 with tab2:
     st.markdown('''The two areas in which the mean of the 2D distribution is smaller (blue) or larger (orange)
-                than the mean of the 3D distribution. Black points are data from measured ordinary chondrites.''')
+                than the mean of the 3D distribution. Black points are data from measured ordinary chondrites.
+                From left to right: Fig. 3, Fig. 5a, Fig. 5b''')
 
     df_results = pd.read_csv('chondrules 2D-3D distributions results file.csv')
 
@@ -56,6 +56,8 @@ with tab2:
         utils.func.mu2D_vs_mu3D(sel_sigma, df_results)
 
 with tab3:
+    st.markdown('Choose any parameter combination you like to produce Fig. 3, Fig. 5a, and Fig. 5b.')
+    st.warning('You can type in a number in the fields, do not click the \'+\' or \'-\' buttons too quickly, as this might cause the programme to crash. Should this happen – simply reload the page.')
     col1, col2, col3 = st.columns(3)
     with col1:
         mu3DStart = st.number_input('**µ 3D mean** start', value=6.2, step=.2, key='mu3Dstart')
@@ -67,36 +69,36 @@ with tab3:
 
     col1, col2, col3 = st.columns(3)
     with col1:
-        iniSigmastart = st.number_input('**σ initial** start', value=.4, step=.05, key='iniSigmastart')
+        iniSigmastart = st.number_input('**σ initial** start', value=.4, step=.05, key='iniSigmastart', on_change=utils.func.update_values)
     with col2:
-        iniSigmaend = st.number_input('end', value=.6, step=.05, key='iniSigmaend')
+        iniSigmaend = st.number_input('end', value=.6, step=.05, key='iniSigmaend', on_change=utils.func.update_values)
     with col3:
-        iniSigmastep = st.number_input('steps', value=.1, step=.1, key='iniSigmastep')
+        iniSigmastep = st.number_input('steps', value=.1, step=.1, key='iniSigmastep', on_change=utils.func.update_values)
     iniSigma_List = [x/10 for x in range(int(iniSigmastart*10), int((iniSigmaend+.1)*10), int(iniSigmastep*10))]
 
     col1, col2, col3 = st.columns(3)
     with col1:
-        minChdSize_rangestart = st.number_input('**min chd size** start', value=100, step=50, key='minChdSize_rangestart')
+        minChdSize_rangestart = st.number_input('**min chd size** start', value=100, step=50, key='minChdSize_rangestart', on_change=utils.func.update_values)
     with col2:
-        minChdSize_rangeend = st.number_input('end', value=200, step=50, key='minChdSize_rangeend')
+        minChdSize_rangeend = st.number_input('end', value=200, step=50, key='minChdSize_rangeend', on_change=utils.func.update_values)
     with col3:
-        minChdSize_rangestep = st.number_input('steps', value=50, step=50, key='minChdSize_rangestep')
+        minChdSize_rangestep = st.number_input('steps', value=50, step=50, key='minChdSize_rangestep', on_change=utils.func.update_values)
     minChdSize_range = [x/10 for x in range(int(minChdSize_rangestart*10), int((minChdSize_rangeend+.1)*10), int(minChdSize_rangestep*10))]
 
     col1, col2, col3 = st.columns(3)
     with col1:
-        maxChdSize_rangestart = st.number_input('**max chd size** start', value=1500, step=100, key='maxChdSize_rangestart')
+        maxChdSize_rangestart = st.number_input('**max chd size** start', value=1500, step=100, key='maxChdSize_rangestart', on_change=utils.func.update_values)
     with col2:
-        maxChdSize_rangeend = st.number_input('end', value=2000, step=100, key='maxChdSize_rangeend')
+        maxChdSize_rangeend = st.number_input('end', value=2000, step=100, key='maxChdSize_rangeend', on_change=utils.func.update_values)
     with col3:
-        maxChdSize_rangestep = st.number_input('steps', value=500, step=100, key='maxChdSize_rangestep')
+        maxChdSize_rangestep = st.number_input('steps', value=500, step=100, key='maxChdSize_rangestep', on_change=utils.func.update_values)
     maxChdSize_range = [x/10 for x in range(int(maxChdSize_rangestart*10), int((maxChdSize_rangeend+.1)*10), int(maxChdSize_rangestep*10))]
-   
+
     col1, col2 = st.columns(2)
     with col1:
-        numberOfChondrules_power = st.number_input('nr. of chondrules (10^x)', value=5, step=1)
+        numberOfChondrules_power = st.number_input('nr. of chondrules (10^x)', value=5, step=1, key='numberOfChondrules_power', on_change=utils.func.update_values)
     with col2:
-        zAxisLength_power = st.number_input('length of z-axis (10^x)', value=4, step=1)
+        zAxisLength_power = st.number_input('length of z-axis (10^x)', value=4, step=1, key='zAxisLength_power', on_change=utils.func.update_values)
     numberOfChondrules = 10**numberOfChondrules_power
     zAxisLength = 10**zAxisLength_power
 
@@ -132,7 +134,7 @@ with tab3:
 
 
 with tab4:
-    st.markdown('Explore how the 3D chondrule size distribution changes in response to its defining parameters 2 parameters **µ 3D** and **σ initial**.')
+    st.markdown('Explore how the 3D chondrule size distribution changes in response to its defining parameters 2 parameters **µ 3D** and **σ initial**. Further down, these parameters are used to calculate and display how the average of the 3D and 2D distributions change with chaning **σ initial**.')
 
     col1, col2, col3, col4, col5 = st.columns(5)
     with col1:
@@ -162,4 +164,4 @@ with tab5:
     st.markdown('''	Chondrule size-frequency distributions provide important information to understand the origin of chondrules. Size-frequency distributions are often obtained as apparent 2D size-frequency distributions in thin sections, as determining a 3D size-frequency distribution is notoriously difficult. The relationship between a 2D size-frequency distribution and its corresponding 3D size-frequency distribution has been previously modelled, however, the results contradict measured results. Models so far predict a higher mean of the 2D size-frequency distribution than the corresponding mean of the 3D size-frequency distribution, while measurements of real chondrule populations show the opposite. Here we use a new model approach that agrees with these measurements and at the same time offers a solution, why models so far predicted the opposite. Our new model provides a tool with which the 3D chondrule size-frequency distribution can be determined from the fit of a measured 2D chondrule size-frequency distribution.
                 ''')
     st.markdown('''Hezel et al. 2025. Revealing the relationship between 2D and 3D
-                chondrule size-frequency distribution in a meteorite. *Meteoritics & Planetary Sciences* (re-submitted)''')
+                chondrule size-frequency distribution in a meteorite. *Meteoritics & Planetary Sciences* (in press) [doi: 10.1111/maps.14336](https://doi.org/10.1111/maps.14336).''')
